@@ -1,42 +1,51 @@
 package pathfindingalg;
 
 import java.util.*;
-import java.io.*;
 
-public class PathFindingAlg { 
-    
-    public static void main(String[] args) throws IOException {
+public class PathFindingAlg {
         
-        String basefile = args[0];
+    public static void main(String[] args) {
         List<Point> points = new ArrayList<Point>();
+        Point a = new Point(0, 3);
+        Point b = new Point(1, 5);
+        Point c = new Point(2, 2);
+        Point d = new Point(3, 7);
+        Point e = new Point(4, 17);
+        Point f = new Point(5, 5);
+        Point g = new Point(6, 1);
         
-        try (BufferedReader in = new BufferedReader(
-                new FileReader(basefile))) {
-            String s;
-            
-            while((s = in.readLine()) != null)
-            {
-                String parts[] = s.split(" ");
-                if(parts.length == 2)
-                {
-                    int a = Integer.parseInt(parts[0]);
-                    float b = Float.parseFloat(parts[1]);
-                    points.add(new Point(a, b));
-                }
-                else if(parts.length == 4) {
-                    int a = Integer.parseInt(parts[0]);
-                    int b = Integer.parseInt(parts[1]);
-                    float c = Float.parseFloat(parts[2]);
-                    float d = Float.parseFloat(parts[3]);
-                    Point from = points.get(a);
-                    Point to = points.get(b);
-                    from.connects.add(new Connection(to, c, d));
-                }
-            }
-        }
-             
+        
+        a.connects.add(new Connection(b, 4, 1));
+        a.connects.add(new Connection(d, 1, 1));
+        
+        b.connects.add(new Connection(c, 6, 1));
+        
+        c.connects.add(new Connection(g, 6, 1));
+        c.connects.add(new Connection(f, 5, 1));
+        c.connects.add(new Connection(d, 2, 1));
+        
+        d.connects.add(new Connection(a, 1, 1));
+        d.connects.add(new Connection(c, 2, 1));
+        d.connects.add(new Connection(e, 10, 1));
+        
+        e.connects.add(new Connection(f, 12, 1));
+        
+        f.connects.add(new Connection(g, 4, 1));
+        f.connects.add(new Connection(c, 5, 1));
+        
+        g.connects.add(new Connection(f, 4, 1));
+                
+        
+        points.add(a);
+        points.add(b);
+        points.add(c);
+        points.add(d);
+        points.add(e);
+        points.add(f);
+        points.add(g);
+        
         MPAlg nasz = new MPAlg(points);
-        nasz.find(points.get(0), points.get(5));
+        nasz.find(a, f);
         System.out.println(nasz.path);
         System.out.println(Float.toString(nasz.time));
     }

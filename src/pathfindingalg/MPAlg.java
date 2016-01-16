@@ -36,6 +36,7 @@ public class MPAlg {
     {
         //System.out.println(newPath.toString() + Integer.toString(a.destination.index));
         if(newPath.totalTravelTime > time && time != 0) {
+            //newPath.travelPath.pop();
             return;
         }
         
@@ -45,6 +46,7 @@ public class MPAlg {
             a.destination.timeFromStart = newPath.totalTravelTime;
         
         if(a.destination.isVisited) {
+            //newPath.travelPath.pop();
             return;
         } else
             a.destination.isVisited = true;
