@@ -1,20 +1,20 @@
-0 3
-1 5
-2 2
-3 7
-4 17
-5 5
-6 1
-0 1 4 1
-0 3 1 1
-1 2 6 1
-2 6 6 1
-2 5 5 1
-2 3 2 1
-3 0 1 1
-3 2 2 1
-3 4 10 1
-4 5 12 1
-5 6 4 1
-5 2 5 1
-6 5 4 1
+Jozefow 3
+Otwock 5
+Sulejowek 2
+Gliny 7
+Michalin 17
+Warszawa 5
+Ostroleka 1
+Jozefow Otwock 4 1
+Jozefow Gliny 1 1
+Otwock Sulejowek 6 1
+Otwock Ostroleka 6 1
+Sulejowek Warszawa 5 1
+Sulejowek Gliny 2 1
+Gliny Jozefow 1 1
+Gliny Sulejowek 2 1
+Gliny Michalin 10 1
+Michalin Warszawa 12 1
+Warszawa Ostroleka 4 1
+Warszawa Sulejowek 5 1
+Ostroleka Warszawa 4 1

@@ -37,12 +37,12 @@ public class Path implements Cloneable {
     public String toString()
     {
         StringBuilder string = new StringBuilder();
-        string.append(Integer.toString(from.index) + " -> ");
+        string.append(from.id + " -> ");
         Iterator<Connection> i = this.travelPath.iterator();
         Connection tmp;
         while(i.hasNext()) {
             tmp = i.next();
-            string.append(Integer.toString(tmp.destination.index));
+            string.append(tmp.destination.id);
             if(tmp.destination != to)
                 string.append(" -> ");
         }

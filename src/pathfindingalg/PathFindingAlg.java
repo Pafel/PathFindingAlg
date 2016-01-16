@@ -9,6 +9,7 @@ public class PathFindingAlg {
         
         String basefile = args[0];
         List<Point> points = new ArrayList<Point>();
+        int index = 0;
         
         try (BufferedReader in = new BufferedReader(
                 new FileReader(basefile))) {
@@ -19,18 +20,27 @@ public class PathFindingAlg {
                 String parts[] = s.split(" ");
                 if(parts.length == 2)
                 {
-                    int a = Integer.parseInt(parts[0]);
-                    float b = Float.parseFloat(parts[1]);
-                    points.add(new Point(a, b));
+                    float a = Float.parseFloat(parts[1]);
+                    points.add(new Point(index, parts[0], a));
+                    index++;
                 }
                 else if(parts.length == 4) {
-                    int a = Integer.parseInt(parts[0]);
-                    int b = Integer.parseInt(parts[1]);
-                    float c = Float.parseFloat(parts[2]);
-                    float d = Float.parseFloat(parts[3]);
-                    Point from = points.get(a);
-                    Point to = points.get(b);
-                    from.connects.add(new Connection(to, c, d));
+                    float a = Float.parseFloat(parts[2]);
+                    float b = Float.parseFloat(parts[3]);
+                    Point c = null;
+                    Point d = null;
+                    for(Point point : points) {
+                        if(point.id.equals(parts[0]))
+                            c = point;
+                        else if(point.id.equals(parts[1]))
+                            d = point;
+                    }
+                    if(c != null && d != null)
+                        c.connects.add(new Connection(d, a, b));
+                    else {
+                        System.out.println("Nie znaleziono punktów");
+                        return;
+                    }  
                 }
             }
         }
