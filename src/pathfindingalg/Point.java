@@ -4,7 +4,7 @@ import java.util.*;
 
 
 public class Point {
-    protected final int index;
+    private final int index;
     protected final float waitTime;
     protected final String id;
     protected final List<Connection> connects;

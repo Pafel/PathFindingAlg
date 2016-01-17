@@ -7,6 +7,13 @@ public class PathFindingAlg {
     
     public static void main(String[] args) throws IOException {
         
+        if (args.length != 3)
+        {
+            System.out.println("Nie podano wystarczającej liczby parametrów");
+            return;
+        }
+            
+        
         String basefile = args[0];
         List<Point> points = new ArrayList<>();
         int index = 0;

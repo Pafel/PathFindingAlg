@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Connection {
     protected final Point destination;
-    protected final float velocity;
-    protected final float distance;
+    private final float velocity;
+    private final float distance;
     protected final boolean isBilateral;
     
     public Connection(Point destination, float velocity, float distance)
