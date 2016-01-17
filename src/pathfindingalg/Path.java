@@ -34,10 +34,11 @@ public class Path implements Cloneable {
         this.totalTravelTime = 0.0f;
     }
     
+    @Override
     public String toString()
     {
         StringBuilder string = new StringBuilder();
-        string.append(from.id + " -> ");
+        string.append(from.id).append(" -> ");
         Iterator<Connection> i = this.travelPath.iterator();
         Connection tmp;
         while(i.hasNext()) {

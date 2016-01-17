@@ -8,7 +8,7 @@ public class PathFindingAlg {
     public static void main(String[] args) throws IOException {
         
         String basefile = args[0];
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         int index = 0;
         
         try (BufferedReader in = new BufferedReader(
@@ -43,6 +43,10 @@ public class PathFindingAlg {
                     }  
                 }
             }
+        }
+        catch(FileNotFoundException e) {
+            System.out.println("Nie znaleziono pliku");
+            return;
         }
              
         MPAlg nasz = new MPAlg(points);
