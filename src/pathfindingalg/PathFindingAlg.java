@@ -11,9 +11,9 @@ public class PathFindingAlg {
         
         if (args[0].equals("r"))
         {
-            int[][] res = new int[1000][2];
+            int[][] res = new int[1][2];
         
-            for(int k = 0 ; k < 1000 ; k++) {
+            for(int k = 0 ; k < 1 ; k++) {
             
             Random generator = new Random();
             List<Point> points = new ArrayList<>();
@@ -21,9 +21,9 @@ public class PathFindingAlg {
             int n = 0;
             int c = 0;
             while (n == 0)
-                n = generator.nextInt(100);
+                n = generator.nextInt(1000);
             while (c == 0)
-                c = generator.nextInt(50);
+                c = generator.nextInt(500);
             int con = 0;
 
             for(int i = 0 ; i < n ; i++)
@@ -51,15 +51,25 @@ public class PathFindingAlg {
             MPAlg nasz = new MPAlg(points);
             Point point1 = points.get(generator.nextInt(points.size()));
             Point point2 = points.get(generator.nextInt(points.size()));
+            long start_time = System.nanoTime();
             res[k][1] = nasz.find(point1, point2);
+            long end_time = System.nanoTime();
+            double difference = (end_time - start_time)/1e6;
             if(!nasz.path.equals("nope")) {
                 System.out.println(nasz.path);
                 System.out.println(Float.toString(nasz.time));
+                System.out.println(Double.toString(difference));
+                res[k][0] = con;
             }
-            
-            res[k][0] = con;
-            System.out.println(Integer.toString(k));
+            else
+            {
+                res[k][0] = 0;
+                res[k][1] = 0;
             }
+            }
+            for (int k = 0 ; k < 1 ; k++)
+                if(res[k][0] != 0 && res[k][1] != 0)
+                    System.out.println(Integer.toString(res[k][0]) + " " + Integer.toString(res[k][1]));
             
             return;
         }
