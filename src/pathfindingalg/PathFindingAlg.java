@@ -38,7 +38,7 @@ public class PathFindingAlg {
                     if(c != null && d != null)
                         c.connects.add(new Connection(d, a, b));
                     else {
-                        System.out.println("Nie znaleziono punktów");
+                        System.out.println("Błędny plik, nie można dodać ścieżki");
                         return;
                     }  
                 }
@@ -46,9 +46,21 @@ public class PathFindingAlg {
         }
              
         MPAlg nasz = new MPAlg(points);
-        nasz.find(points.get(0), points.get(5));
+        Point point1 = null;
+        Point point2 = null;
+        for(Point point : points) {
+            if (point.id.equals(args[1]))
+                point1 = point;
+            else if (point.id.equals(args[2]))
+                point2 = point;
+        }
+        if(point1 == null || point2 == null) {
+            System.out.println("Nie znaleziono punktów");
+            return;
+        }    
+        
+        nasz.find(point1, point2);
         System.out.println(nasz.path);
         System.out.println(Float.toString(nasz.time));
-    }
-    
+    } 
 }

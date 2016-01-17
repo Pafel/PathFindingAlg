@@ -29,6 +29,8 @@ public class MPAlg {
                 search(connect, finish);
                 resetVisits();
                 newPath.timeReset();
+                if(path.equals("nope"))
+                    System.out.println("Nie znaleziono ścieżki");
         }
     }
     
