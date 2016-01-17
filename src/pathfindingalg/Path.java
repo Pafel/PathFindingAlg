@@ -2,7 +2,7 @@ package pathfindingalg;
 
 import java.util.*;
 
-public class Path implements Cloneable {
+public class Path {
     protected Stack<Connection> travelPath;
     protected float totalTravelTime;
     protected Point from, to;
