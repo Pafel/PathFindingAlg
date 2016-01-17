@@ -16,6 +16,7 @@ public class PathFindingAlg {
         
         String basefile = args[0];
         List<Point> points = new ArrayList<>();
+        List<DNode> nodes = new ArrayList<>();
         int index = 0;
         
         try (BufferedReader in = new BufferedReader(
@@ -29,6 +30,7 @@ public class PathFindingAlg {
                 {
                     float a = Float.parseFloat(parts[1]);
                     points.add(new Point(index, parts[0], a));
+                    nodes.add(new DNode(index, parts[0], a));
                     index++;
                 }
                 else if(parts.length == 4) {
@@ -36,14 +38,25 @@ public class PathFindingAlg {
                     float b = Float.parseFloat(parts[3]);
                     Point c = null;
                     Point d = null;
+                    DNode e = null;
+                    DNode f = null;
                     for(Point point : points) {
                         if(point.id.equals(parts[0]))
                             c = point;
                         else if(point.id.equals(parts[1]))
-                            d = point;
+                            d = point;  
                     }
-                    if(c != null && d != null)
-                        c.connects.add(new Connection(d, a, b));
+                    
+                    for(DNode node : nodes) {
+                        if(node.id.equals(parts[0]))
+                            e = node;
+                        else if(node.id.equals(parts[1]))
+                            f = node;
+                    }
+                    if(c != null && d != null && e != null && f != null) {
+                        c.connects.add(new Connection(d, b, a));
+                        e.neighbours.add(new Neighbour(f, b, a));
+                    }
                     else {
                         System.out.println("Błędny plik, nie można dodać ścieżki");
                         return;
@@ -69,9 +82,16 @@ public class PathFindingAlg {
             System.out.println("Nie znaleziono punktów");
             return;
         }    
-        
+        System.out.println("Oryginalny algorytm:");
         nasz.find(point1, point2);
         System.out.println(nasz.path);
         System.out.println(Float.toString(nasz.time));
+        
+        System.out.println("Algorytm Dijkstry:");
+        DFind djikstra = new DFind();
+        djikstra.findShortestPath(nodes, nodes.get(0), nodes.get(5));
+        Stack<DNode> tmp = djikstra.getShortestPath(nodes.get(5));
+        DPath thePath = new DPath(tmp);
+        System.out.println(thePath.toString() + "\n" + djikstra.getTime());
     } 
 }

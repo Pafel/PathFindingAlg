@@ -19,6 +19,6 @@ public class Connection {
     
     protected float travelTime()  
     {
-        return this.velocity / this.distance;
+        return this.distance/ this.velocity;
     }
 }

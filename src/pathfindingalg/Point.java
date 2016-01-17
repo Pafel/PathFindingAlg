@@ -15,7 +15,7 @@ public class Point {
     {
         this.index = index;
         this.waitTime = waitTime;
-        this.connects = new ArrayList<Connection>();
+        this.connects = new ArrayList<>();
         this.id = id;
         this.timeFromStart = 0.0f;
         this.isVisited = false;
