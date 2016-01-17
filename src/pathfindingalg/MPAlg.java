@@ -22,18 +22,24 @@ public class MPAlg {
             point.isVisited = false;
     }
     
-    public void find(Point start, Point finish)
+    public int find(Point start, Point finish)
     {
         newPath = new Path(start, finish);
+        
         for (Connection connect : start.connects) {
                 start.isVisited = true;
                 search(connect, finish);
                 resetVisits();
                 newPath.timeReset();
-                if(path.equals("nope"))
-                    System.out.println("Nie znaleziono ścieżki");
+                i++;
+                
         }
-                System.out.println(Integer.toString(i));
+        if(path.equals("nope")) {
+                    System.out.println("Nie znaleziono ścieżki");
+                    return 0;
+                }
+        System.out.println(Integer.toString(i));
+        return i;
     }
     
     private void search(Connection a, Point z)
@@ -44,7 +50,6 @@ public class MPAlg {
         
         if (a.destination.timeFromStart != 0) {
             a.destination.timeFromStart = Math.min(a.destination.timeFromStart, newPath.totalTravelTime);
-            i++;
         }
         else
             a.destination.timeFromStart = newPath.totalTravelTime;
@@ -59,14 +64,13 @@ public class MPAlg {
             newPath.setTime();
             time = newPath.getTime();
             path = newPath.toString();
-            i++;
         }
         else {
-            i++;
             newPath.travelPath.push(a);
             newPath.setTime();
             for (Connection connect : a.destination.connects) {
                 search(connect, z);
+                i++;
             }
         }
             
@@ -74,4 +78,6 @@ public class MPAlg {
         newPath.travelPath.pop();
         return;
     }
+    
+    
 }

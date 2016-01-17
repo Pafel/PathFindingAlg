@@ -5,7 +5,65 @@ import java.io.*;
 
 public class PathFindingAlg { 
     
+    
+    
     public static void main(String[] args) throws IOException {
+        
+        if (args[0].equals("r"))
+        {
+            int[][] res = new int[1000][2];
+        
+            for(int k = 0 ; k < 1000 ; k++) {
+            
+            Random generator = new Random();
+            List<Point> points = new ArrayList<>();
+            int index;
+            int n = 0;
+            int c = 0;
+            while (n == 0)
+                n = generator.nextInt(100);
+            while (c == 0)
+                c = generator.nextInt(50);
+            int con = 0;
+
+            for(int i = 0 ; i < n ; i++)
+            {
+              points.add(new Point(i, Integer.toString(i), generator.nextFloat()*20));
+            }
+
+            for(int i = 0 ; i < n+c ; i++)
+            {
+              Point p = points.get(generator.nextInt(n));
+              Point q = points.get(generator.nextInt(n));
+              p.connects.add(new Connection(q, generator.nextFloat()*20, generator.nextFloat()*20));
+            }
+        
+            for(Point p : points)
+            {
+                if(p.connects.isEmpty() == true)
+                    p.connects.remove(p);
+                else
+                    con += p.connects.size();
+                    
+            }
+            System.out.println(Integer.toString(points.size()) + " " + Integer.toString(con));
+            
+            MPAlg nasz = new MPAlg(points);
+            Point point1 = points.get(generator.nextInt(points.size()));
+            Point point2 = points.get(generator.nextInt(points.size()));
+            res[k][1] = nasz.find(point1, point2);
+            if(!nasz.path.equals("nope")) {
+                System.out.println(nasz.path);
+                System.out.println(Float.toString(nasz.time));
+            }
+            
+            res[k][0] = con;
+            System.out.println(Integer.toString(k));
+            }
+            
+            return;
+        }
+        
         
         if (args.length != 3)
         {
@@ -94,4 +152,5 @@ public class PathFindingAlg {
         DPath thePath = new DPath(tmp);
         System.out.println(thePath.toString() + "\n" + djikstra.getTime());
     } 
+    
 }
