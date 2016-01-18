@@ -9,7 +9,7 @@ public class PathFindingAlg {
     
     public static void main(String[] args) throws IOException {
         
-        if (args[0].equals("r"))
+        if (args.length == 1 && args[0].equals("r"))
         {
             int[][] res = new int[1][2];
         
@@ -23,7 +23,7 @@ public class PathFindingAlg {
             while (n == 0)
                 n = generator.nextInt(1000);
             while (c == 0)
-                c = generator.nextInt(500);
+                c = generator.nextInt(100);
             int con = 0;
 
             for(int i = 0 ; i < n ; i++)
@@ -33,16 +33,19 @@ public class PathFindingAlg {
 
             for(int i = 0 ; i < n+c ; i++)
             {
-              Point p = points.get(generator.nextInt(n));
-              Point q = points.get(generator.nextInt(n));
-              p.connects.add(new Connection(q, generator.nextFloat()*20, generator.nextFloat()*20));
+                Point p = points.get(generator.nextInt(n));
+                Point q = points.get(generator.nextInt(n));
+                if(p != q)
+                    p.connects.add(new Connection(q, generator.nextFloat()*20, generator.nextFloat()*20));
+                else
+                    i--;
             }
         
             for(Point p : points)
             {
-                if(p.connects.isEmpty() == true)
-                    p.connects.remove(p);
-                else
+                //if(p.connects.isEmpty() == true)
+                  //  p.connects.remove(p);
+                //else
                     con += p.connects.size();
                     
             }
@@ -146,21 +149,34 @@ public class PathFindingAlg {
             else if (point.id.equals(args[2]))
                 point2 = point;
         }
-        if(point1 == null || point2 == null) {
+        DNode node1 = null;
+        DNode node2 = null;
+        for(DNode node : nodes)
+        {
+            if (node.id.equals(args[1]))
+                node1 = node;
+            else if (node.id.equals(args[2]))
+                node2 = node;   
+        }
+        if(point1 == null || point2 == null || node1 == null || node2 == null) {
             System.out.println("Nie znaleziono punktów");
             return;
         }    
         System.out.println("Oryginalny algorytm:");
-        nasz.find(point1, point2);
-        System.out.println(nasz.path);
-        System.out.println(Float.toString(nasz.time));
+        if (nasz.find(point1, point2) != 0) {
+            System.out.println(nasz.path);
+            System.out.println(Float.toString(nasz.time));
+        }
         
         System.out.println("Algorytm Dijkstry:");
         DFind djikstra = new DFind();
-        djikstra.findShortestPath(nodes, nodes.get(0), nodes.get(5));
-        Stack<DNode> tmp = djikstra.getShortestPath(nodes.get(5));
+        djikstra.findShortestPath(nodes, node1, node2);
+        Stack<DNode> tmp = djikstra.getShortestPath(node2);
         DPath thePath = new DPath(tmp);
-        System.out.println(thePath.toString() + "\n" + djikstra.getTime());
+        if (Float.isInfinite(djikstra.getTime()))
+            System.out.println("Nie znaleziono ścieżki");
+        else
+            System.out.println(thePath.toString() + "\n" + djikstra.getTime());
     } 
     
 }

@@ -38,7 +38,6 @@ public class MPAlg {
                     System.out.println("Nie znaleziono ścieżki");
                     return 0;
                 }
-        System.out.println(Integer.toString(i));
         return i;
     }
     
@@ -71,6 +70,7 @@ public class MPAlg {
             for (Connection connect : a.destination.connects) {
                 search(connect, z);
                 i++;
+                
             }
         }
             

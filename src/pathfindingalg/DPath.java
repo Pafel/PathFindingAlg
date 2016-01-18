@@ -16,6 +16,7 @@ public class DPath {
     public String toString(){
         
         StringBuilder string = new StringBuilder();
+        
         while (!travelPath.empty()){
            string.append(travelPath.pop().toString());
            string.append(" -> "); 
